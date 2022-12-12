@@ -25,7 +25,7 @@ show_all : async (req, res) => {
         return res.json({
             status: 200,
             data: users,
-            metadata: ""
+            metadata: "data successfully get"
     })
 }else{
     return res.status(400).json(
@@ -51,17 +51,21 @@ server : async (req, res) => {
 
 update: async (req, res) => {
     // email, nama, password ->>>>>>>>>>>>>>> BE nangkep
+    const id=req.params.id
     const { email, nama, password, passwordBaru } = req.body
-    // const check = await passwordCheck(email, password)
+    const check = await passwordCheck(email, password)
     const encryptedPassword = await bcrypt.hash(passwordBaru, 10)
 
     if (check.compare === true) {
         const users = await UserModel.update({
             nama, password: encryptedPassword
-        }, { where: { email: email } })
+        }, { where: { id: id, email: email } })
 
         res.status(200).json({
             users: { updated: users[0] },
+            email,
+            nama,
+            password,
             metadata: "user updated! "
         })
     } else {

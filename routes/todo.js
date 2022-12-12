@@ -5,9 +5,9 @@ const TodoModel = require('../models/todo')
 const join = require('../controller/todo')
 
 // routing endpoint users utama
-router.get('/Users', join.server)
-router.post('/user', join.store)
-router.put('/user/:id', join.update )
-router.delete('/user/:id', join.junk )
+router.get('/todos', join.server)
+router.post('/todo', join.store)
+router.put('/todo/:id', join.update )
+router.delete('/todo/:id', join.junk )
 
 module.exports = router
